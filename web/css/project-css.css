@@ -1,0 +1,150 @@
+div#wrapper{
+    margin: auto;
+    width: 1400px;
+    box-shadow: 1px 1px 10px 5px rgba(192, 192, 192, 0.53);
+    /*text-align: center;*/
+    padding-bottom: 8px;
+    background-color: white;
+    overflow: hidden;
+    padding-top: 20px;
+}
+
+div #header{
+    height: 200px;
+    background: greenyellow; 
+    position: relative;
+    width: 100%;
+        box-shadow: 0 4px 10px 2px lightgray;
+}
+
+div#body{
+    padding: 0 50px 0 50px;
+    overflow: hidden;
+}
+
+div#basic-info{
+    float: left;
+    width: 45%;
+/*    height: 500px;*/
+    padding-left: 30px;
+}
+
+div#map{
+    margin-left: 20px;
+    width: 700px;
+    height: 500px;
+    float:left;
+}
+
+div#chart{
+    margin: 15px;
+    float:left;
+    width: 60%;
+    padding-left: 10px;
+    
+}
+
+div#desc{
+    margin-top: 10px;
+    margin-right: 10px;
+    border: 1px solid gray;
+    background: #E8E8E8;
+    border-radius:7px;
+}
+
+div.posting{
+    font-size: 24pt;
+    font-weight: bold
+}
+
+div.value-change{
+    border:2px solid;
+    width: fit-content;
+    padding: 5px;
+    text-align: right;
+    font-size: 20pt;
+    float: left;
+}
+
+section {
+     margin-top: 15px;
+     overflow: hidden;
+}
+
+h1, p, label, legend{
+    /*color: #2c87f0*/
+    color: green
+}
+
+fieldset.field {
+    text-align: left;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    color:#444;
+    border:2px solid #dadada;
+    border-radius:7px;
+    padding: 20px 0 20px 30px;
+}
+
+body{
+    margin-top: 0;
+}
+
+input {
+    margin-bottom:20px;
+    padding:10px 0 10px 5px;
+    border:1px solid #dadada;
+    border-radius:3px;
+    font-size: 12pt;
+}
+
+input.btn {
+    width:100px;
+    font-weight: bold;
+    margin:auto;
+    color: green;
+    border-radius: 5px;
+    padding: 10px 10px 10px 10px;
+    
+}
+
+select {
+    border:1px solid #dadada;
+    border-radius:3px;
+    font-size: 12pt;    
+    padding: 10px 0 10px 0;
+}
+
+label.addLabel{
+    font-size: 14pt;
+}
+
+.error{
+    color: red;
+    font-size: 42pt;
+    padding-left: 50px
+}
+
+ul 
+{
+    list-style-type: none;
+    -moz-column-count: 3;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 20px;
+    column-count: 3;
+    column-gap: 20px;
+}
+
+ul li 
+{
+    list-style: none;
+    margin-left: 1em;
+    position: relative;
+}
+
+#low, #high{
+    font-size: 16pt;   
+}
