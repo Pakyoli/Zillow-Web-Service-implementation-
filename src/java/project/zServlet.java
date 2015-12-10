@@ -1,6 +1,7 @@
 package project;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,14 +52,14 @@ public class zServlet extends HttpServlet {
         String zip = request.getParameter("zip");
         String citystatezip = city + "+" + state + "+" + zip;
 
-        GregorianCalendar gc = new GregorianCalendar();
-        
+        GregorianCalendar gc = new GregorianCalendar();       
 
         try {
-            //get deep search results
+            //get deep search results using getDeepSearchResults web service
             RestResponse result = ZillowRealEstateService.getDeepSearchResults(address, citystatezip);
             
             if(result.getResponseCode()==200){ //check the response code and see if we get a response
+                
                 if (result.getDataAsObject(zillow.realestateservice.searchresults.Searchresults.class) instanceof zillow.realestateservice.searchresults.Searchresults) {
                     zillow.realestateservice.searchresults.Searchresults resultObj = result.getDataAsObject(zillow.realestateservice.searchresults.Searchresults.class);
                     
@@ -83,16 +84,18 @@ public class zServlet extends HttpServlet {
                         r.setFinishedSize(resultList.getFinishedSqFt());
                         r.setLastUpdate(resultList.getZestimate().getLastUpdated());
                         r.setLastSoldDate(resultList.getLastSoldDate()!=null?resultList.getLastSoldDate():null);
-                        r.setLastSoldPrice(resultList.getLastSoldPrice()!=null?resultList.getLastSoldPrice().getValue():null);
+                        if(resultObj.getResponse().getResults().getResult().contains((Object)resultList.getLastSoldPrice())){
+                            r.setLastSoldPrice(resultList.getLastSoldPrice().getValue());
+                        }
                         r.setHigh(resultList.getZestimate().getValuationRange().getHigh().getValue().toString());
                         r.setLow(resultList.getZestimate().getValuationRange().getLow().getValue().toString());
                         r.setValueChanged(resultList.getZestimate().getValueChange().getValue());
                         
-                        //get chart
+                        //get chart using zillow getChart web service
                         RestResponse result1 = ZillowRealEstateService.getChart(zpid, unittype, width, height, chartduration);
                         if (result1.getDataAsObject(zillow.realestateservice.chart.Chart.class) instanceof zillow.realestateservice.chart.Chart) {
                             zillow.realestateservice.chart.Chart chartObj = result1.getDataAsObject(zillow.realestateservice.chart.Chart.class);
-                            r.setRegionChart(chartObj.getResponse().getUrl()); 
+                            r.setChart(chartObj.getResponse().getUrl()); 
                         }
                         
                         //get updated property details
@@ -131,9 +134,9 @@ public class zServlet extends HttpServlet {
                     }
                 }
             } else {
-                error = "Under maintenance, please check back later.";
+                error = "No record found for this address. Please search again..";
             }
-        } catch (IOException | JAXBException | ParserConfigurationException | SAXException | ParseException ex ) {
+        } catch (IOException | JAXBException | ParserConfigurationException | SAXException | ParseException | NullPointerException ex ) {
             error = "Under maintenance, please check back later.";
             Logger.getLogger(zServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
